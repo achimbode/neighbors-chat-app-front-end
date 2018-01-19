@@ -1,12 +1,14 @@
 import io from 'socket.io-client';
 import socketIOWildcard from 'socketio-wildcard';
+import config from '../config/config.js';
 
 export default store => {
 
   let socket;
+  let socketUrl = config.backend.url; // identical
 
   const connect = data => {
-    socket = io('http://localhost:4000');
+    socket = io(socketUrl); // 'http://localhost:4000'
     socketIOWildcard(io.Manager)(socket);
     socket.emit('SOCKET__CONNECT', data);
     socket.on('ACTION', action => {

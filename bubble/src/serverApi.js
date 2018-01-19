@@ -1,7 +1,8 @@
 import base64 from 'base-64';
+import conf from './config/config.js';
 
 export function searchNeighbors (searchString) {
-  const url = new URL('http://localhost:4000/search');
+  const url = new URL(conf.backend.url + '/search');
   const address = searchString
     .split(' ')
     .map(str => str.split(' '))
@@ -15,7 +16,7 @@ export function searchNeighbors (searchString) {
 }
 
 export function registerNewUser (data) {
-  const config = new Request ('http://localhost:4000/signup', {
+  const config = new Request (conf.backend.url + '/signup', {
       method: 'POST',
       body : JSON.stringify(data),
 	    headers: new Headers({
@@ -26,7 +27,7 @@ export function registerNewUser (data) {
 }
 
 export function loginUserServerApi (data) {
-  const config = new Request ('http://localhost:4000/login', {
+  const config = new Request (conf.backend.url + '/login', {
       method: 'POST',
       body : JSON.stringify(data),
 	    headers: new Headers({
@@ -38,21 +39,21 @@ export function loginUserServerApi (data) {
 }
 
 export function logoutUser (data) {
-  const config = new Request (`http://localhost:4000/logout/:${data}`, {
+  const config = new Request (conf.backend.url + `/logout/:${data}`, {
       method: 'PUT',
     })
   return fetch(config);
 }
 
 export function deleteUser (data) {
-  const config = new Request (`http://localhost:4000/deleteUser/:${data}`, {
+  const config = new Request (conf.backend.url + `/deleteUser/:${data}`, {
       method: 'DELETE',
     })
   return fetch(config);
 }
 
 export function getAllUsers (data) {
-  const config = new Request (`http://localhost:4000/getAllUsers/:${data}`, {
+  const config = new Request (conf.backend.url + `/getAllUsers/:${data}`, {
       method: 'GET',
     })
   return fetch(config);
